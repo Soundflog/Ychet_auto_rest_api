@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Павел Вершинин_fix/demo/demo.iml" filepath="$PROJECT_DIR$/Павел Вершинин_fix/demo/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/Павел Вершинин_fix.iml" filepath="$PROJECT_DIR$/.idea/Павел Вершинин_fix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Павел Вершинин.iml" filepath="$PROJECT_DIR$/.idea/Павел Вершинин.iml" />
     </modules>
   </component>
 </project>
