@@ -1,5 +1,8 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -12,18 +15,22 @@ public class Contracts {
     @Column(name = "\"ConclusionDate\"")
     private Timestamp conclusionDate;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "\"AutostopsId\"")
     private Autostops autostops;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "\"StaffsId\"")
     private Staffs staffs;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "\"VouchersId\"")
     private Vouchers vouchers;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "\"ClientsId\"")
     private Clients clients;

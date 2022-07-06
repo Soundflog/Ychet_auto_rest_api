@@ -1,5 +1,8 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -18,13 +21,30 @@ public class Vouchers {
     @Column(name = "\"Summ\"")
     private Integer summ;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "\"DiscountsId\"")
     Discounts discounts;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "vouchers")
     private Set<Contracts> contracts;
 
+    public Discounts getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(Discounts discounts) {
+        this.discounts = discounts;
+    }
+
+    public Set<Contracts> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contracts> contracts) {
+        this.contracts = contracts;
+    }
 
     public Vouchers(Integer summ) {
         super();

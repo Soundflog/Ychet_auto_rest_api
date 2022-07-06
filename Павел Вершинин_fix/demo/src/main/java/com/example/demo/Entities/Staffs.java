@@ -1,5 +1,8 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -19,10 +22,12 @@ public class Staffs {
     @Column(name = "\"Desription\"")
     private String desription;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "\"RolesId\"")
     private Roles roles_staff;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "staffs")
     private Set<Contracts> contracts;
 

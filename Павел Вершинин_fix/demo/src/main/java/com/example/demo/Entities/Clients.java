@@ -1,5 +1,8 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,19 +21,23 @@ public class Clients {
     @Column(name = "\"Gosnumber\"")
     private String gosnumber;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "\"AutosId\"")
-    private Autos autos;
+    private Autos autos_cl;
+
 
     @Column(name = "\"Numberphone\"")
     private String numberphone;
     @Column(name = "\"SeriaNumberDoc\"")
     private String seriaNumberDoc;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "\"RolesId\"")
     private Roles roles_client;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "clients")
     private Set<Contracts> contracts;
 
@@ -77,12 +84,20 @@ public class Clients {
         this.gosnumber = gosnumber;
     }
 
-    public Autos getAutos() {
-        return autos;
+    public Autos getAutos_cl() {
+        return autos_cl;
     }
 
-    public void setAutos(Autos autos) {
-        this.autos = autos;
+    public void setAutos_cl(Autos autos_cl) {
+        this.autos_cl = autos_cl;
+    }
+
+    public Set<Contracts> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contracts> contracts) {
+        this.contracts = contracts;
     }
 
     public String getNumberphone() {
@@ -117,7 +132,7 @@ public class Clients {
                 ", firstname='" + firstname + '\'' +
                 ", midname='" + midname + '\'' +
                 ", gosnumber='" + gosnumber + '\'' +
-                ", autos=" + autos +
+                ", autos=" + autos_cl +
                 ", numberphone='" + numberphone + '\'' +
                 ", seriaNumberDoc='" + seriaNumberDoc + '\'' +
                 ", roles_client=" + roles_client +

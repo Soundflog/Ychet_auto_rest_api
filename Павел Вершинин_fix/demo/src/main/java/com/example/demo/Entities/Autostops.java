@@ -1,5 +1,7 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class Autostops {
     @Column(name = "\"Type\"")
     private String type;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "autostops")
     private Set<Contracts> contracts;
 

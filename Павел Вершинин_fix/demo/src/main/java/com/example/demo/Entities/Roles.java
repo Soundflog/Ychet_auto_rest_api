@@ -1,5 +1,7 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,9 +14,11 @@ public class Roles {
     @Column(name = "\"Namerole\"")
     private String namerole;
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "roles_staff")
     private List<Staffs> staffs;
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "roles_client")
     private List<Clients> clients;
 

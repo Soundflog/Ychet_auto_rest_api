@@ -1,5 +1,7 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,19 +14,13 @@ public class Autos {
     @Column(name = "\"Autoname\"")
     private String autoname;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "autos")
-    private List<Autos> autos;
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "autos_cl")
+    private List<Clients> autos_cl;
 
     public Autos() {
     }
 
-    public List<Autos> getAutos() {
-        return autos;
-    }
-
-    public void setAutos(List<Autos> autos) {
-        this.autos = autos;
-    }
 
     public Autos(String autoname) {
         super();
@@ -43,6 +39,14 @@ public class Autos {
         return autoname;
     }
 
+    public List<Clients> getAutos_cl() {
+        return autos_cl;
+    }
+
+    public void setAutos_cl(List<Clients> autos_cl) {
+        this.autos_cl = autos_cl;
+    }
+
     public void setAutoname(String autoname) {
         this.autoname = autoname;
     }
@@ -52,7 +56,6 @@ public class Autos {
         return "Autos{" +
                 "id=" + id +
                 ", autoname='" + autoname + '\'' +
-                ", autos=" + autos +
                 '}';
     }
 }

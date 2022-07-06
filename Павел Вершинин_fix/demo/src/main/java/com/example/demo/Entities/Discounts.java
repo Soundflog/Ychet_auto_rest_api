@@ -1,5 +1,7 @@
 package com.example.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Discounts {
     @Column(name = "\"Sale\"")
     private Integer sale;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "discounts")
     List<Vouchers> vouchers;
 
