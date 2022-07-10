@@ -3,7 +3,6 @@ package com.example.demo.Entities;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,7 +20,7 @@ public class Autostops {
     @Column(name = "\"Type\"")
     private String type;
 
-    @JsonManagedReference
+    @JsonManagedReference("contract_autostop")
     @OneToMany(mappedBy = "autostops")
     private Set<Contracts> contracts;
 

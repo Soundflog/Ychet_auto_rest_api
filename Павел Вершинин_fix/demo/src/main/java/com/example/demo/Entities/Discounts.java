@@ -15,7 +15,7 @@ public class Discounts {
     @Column(name = "\"Sale\"")
     private Integer sale;
 
-    @JsonManagedReference
+    @JsonManagedReference("voucher_discount")
     @OneToMany(mappedBy = "discounts")
     List<Vouchers> vouchers;
 

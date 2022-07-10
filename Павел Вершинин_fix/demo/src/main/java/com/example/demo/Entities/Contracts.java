@@ -15,22 +15,22 @@ public class Contracts {
     @Column(name = "\"ConclusionDate\"")
     private Timestamp conclusionDate;
 
-    @JsonBackReference
+    @JsonBackReference("contract_autostop")
     @ManyToOne
     @JoinColumn(name = "\"AutostopsId\"")
     private Autostops autostops;
 
-    @JsonBackReference
+    @JsonBackReference("contract_staff")
     @ManyToOne
     @JoinColumn(name = "\"StaffsId\"")
     private Staffs staffs;
 
-    @JsonBackReference
+    @JsonBackReference("contract_voucher")
     @ManyToOne
     @JoinColumn(name = "\"VouchersId\"")
     private Vouchers vouchers;
 
-    @JsonBackReference
+    @JsonBackReference("contract_client")
     @ManyToOne
     @JoinColumn(name = "\"ClientsId\"")
     private Clients clients;

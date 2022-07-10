@@ -21,12 +21,12 @@ public class Vouchers {
     @Column(name = "\"Summ\"")
     private Integer summ;
 
-    @JsonBackReference
+    @JsonBackReference("voucher_discount")
     @ManyToOne
     @JoinColumn(name = "\"DiscountsId\"")
     Discounts discounts;
 
-    @JsonManagedReference
+    @JsonManagedReference("contract_voucher")
     @OneToMany(mappedBy = "vouchers")
     private Set<Contracts> contracts;
 

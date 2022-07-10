@@ -14,7 +14,7 @@ public class Autos {
     @Column(name = "\"Autoname\"")
     private String autoname;
 
-    @JsonManagedReference
+    @JsonManagedReference("auto_cl")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "autos_cl")
     private List<Clients> autos_cl;
 

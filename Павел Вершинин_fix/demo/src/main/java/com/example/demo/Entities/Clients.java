@@ -21,7 +21,7 @@ public class Clients {
     @Column(name = "\"Gosnumber\"")
     private String gosnumber;
 
-    @JsonBackReference
+    @JsonBackReference("auto_cl")
     @ManyToOne
     @JoinColumn(name = "\"AutosId\"")
     private Autos autos_cl;
@@ -32,12 +32,12 @@ public class Clients {
     @Column(name = "\"SeriaNumberDoc\"")
     private String seriaNumberDoc;
 
-    @JsonBackReference
+    @JsonBackReference("roles_client")
     @ManyToOne
     @JoinColumn(name = "\"RolesId\"")
     private Roles roles_client;
 
-    @JsonManagedReference
+    @JsonManagedReference("contract_client")
     @OneToMany(mappedBy = "clients")
     private Set<Contracts> contracts;
 

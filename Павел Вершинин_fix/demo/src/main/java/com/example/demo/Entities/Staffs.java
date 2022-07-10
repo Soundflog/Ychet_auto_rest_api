@@ -22,12 +22,12 @@ public class Staffs {
     @Column(name = "\"Desription\"")
     private String desription;
 
-    @JsonBackReference
+    @JsonBackReference("roles_staff")
     @ManyToOne
     @JoinColumn(name = "\"RolesId\"")
     private Roles roles_staff;
 
-    @JsonManagedReference
+    @JsonManagedReference("contract_staff")
     @OneToMany(mappedBy = "staffs")
     private Set<Contracts> contracts;
 

@@ -13,6 +13,7 @@ public class VouchersAssembler implements RepresentationModelAssembler<Vouchers,
         EntityModel<Vouchers>> {
     @Override
     public EntityModel<Vouchers> toModel(Vouchers vouchers){
+
         return EntityModel.of(vouchers,
                 linkTo(methodOn(StaffRestController.class).one(vouchers.getId())).withSelfRel(),
                 linkTo(methodOn(StaffRestController.class).all()).withRel("staffs")
