@@ -49,15 +49,8 @@ public class DiscountsRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> replaceRoles (@RequestBody Discounts newOb, @PathVariable Long id){
-        Discounts updated = discountsRepository.findById(id)
-                .map(discount -> {
-                    discount.setSale(newOb.getSale());
-                    return discountsRepository.save(discount);
-                }).orElseGet(()-> {
-                    newOb.setId(id);
-                    return discountsRepository.save(newOb);
-                });
-        EntityModel<Discounts> entityModel = assembler.toModel(updated);
+        EntityModel<Discounts> entityModel = assembler.toModel(
+                assembler.enrich(newOb, id));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

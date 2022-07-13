@@ -51,19 +51,8 @@ public class ContractRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> replaceRoles (@RequestBody Contracts newOb, @PathVariable Long id){
-        Contracts updated = repository.findById(id)
-                .map(contract -> {
-                    contract.setConclusionDate(newOb.getConclusionDate());
-                    contract.setAutostops(newOb.getAutostops());
-                    contract.setStaffs(newOb.getStaffs());
-                    contract.setClients(newOb.getClients());
-                    contract.setVouchers(newOb.getVouchers());
-                    return repository.save(contract);
-                }).orElseGet(()-> {
-                    newOb.setId(id);
-                    return repository.save(newOb);
-                });
-        EntityModel<Contracts> entityModel = assembler.toModel(updated);
+        EntityModel<Contracts> entityModel = assembler.toModel(
+                assembler.enrich(newOb, id));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

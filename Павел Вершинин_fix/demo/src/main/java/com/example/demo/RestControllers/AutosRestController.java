@@ -51,15 +51,8 @@ public class AutosRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> replaceRoles (@RequestBody Autos newAutos, @PathVariable Long id){
-        Autos updated = autosRepository.findById(id)
-                .map(autos -> {
-                    autos.setAutoname(newAutos.getAutoname());
-                    return autosRepository.save(autos);
-                }).orElseGet(()-> {
-                    newAutos.setId(id);
-                    return autosRepository.save(newAutos);
-                });
-        EntityModel<Autos> entityModel = assembler.toModel(updated);
+        EntityModel<Autos> entityModel = assembler.toModel(
+                assembler.enrich(newAutos, id));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

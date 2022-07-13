@@ -51,19 +51,8 @@ public class StaffRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> replaceRoles (@RequestBody Staffs newOb, @PathVariable Long id){
-        Staffs updated = staffRepository.findById(id)
-                .map(staffs -> {
-                    staffs.setFirstname(newOb.getFirstname());
-                    staffs.setLastname(newOb.getLastname());
-                    staffs.setMidname(newOb.getMidname());
-                    staffs.setDesription(newOb.getDesription());
-                    staffs.setRoles_staff(newOb.getRoles_staff());
-                    return staffRepository.save(staffs);
-                }).orElseGet(()-> {
-                    newOb.setId(id);
-                    return staffRepository.save(newOb);
-                });
-        EntityModel<Staffs> entityModel = assembler.toModel(updated);
+        EntityModel<Staffs> entityModel = assembler.toModel(
+                assembler.enrich(newOb, id));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

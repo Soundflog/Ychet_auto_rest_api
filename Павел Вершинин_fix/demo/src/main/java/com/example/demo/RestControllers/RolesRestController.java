@@ -53,15 +53,8 @@ public class RolesRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> replaceRoles (@RequestBody Roles newRoles, @PathVariable Long id){
-        Roles updatedRole = rolesRepository.findById(id)
-                .map(roles -> {
-                    roles.setNamerole(newRoles.getNamerole());
-                    return rolesRepository.save(roles);
-                }).orElseGet(()-> {
-                    newRoles.setId(id);
-                    return rolesRepository.save(newRoles);
-                });
-        EntityModel<Roles> entityModel = assembler.toModel(updatedRole);
+        EntityModel<Roles> entityModel = assembler.toModel(
+                assembler.enrich(newRoles, id));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

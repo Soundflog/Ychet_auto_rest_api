@@ -52,18 +52,8 @@ public class VouchersRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> replaceRoles (@RequestBody Vouchers newOb, @PathVariable Long id){
-        Vouchers updated = vouchersRepository.findById(id)
-                .map(voucher -> {
-                    voucher.setIndate(newOb.getIndate());
-                    voucher.setOutdate(newOb.getOutdate());
-                    voucher.setSumm(newOb.getSumm());
-                    voucher.setDiscounts(newOb.getDiscounts());
-                    return vouchersRepository.save(voucher);
-                }).orElseGet(()-> {
-                    newOb.setId(id);
-                    return vouchersRepository.save(newOb);
-                });
-        EntityModel<Vouchers> entityModel = assembler.toModel(updated);
+        EntityModel<Vouchers> entityModel = assembler.toModel(
+                assembler.enrich(newOb, id));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

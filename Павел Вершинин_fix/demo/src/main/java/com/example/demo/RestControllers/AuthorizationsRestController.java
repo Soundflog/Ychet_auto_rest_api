@@ -51,16 +51,8 @@ public class AuthorizationsRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> replaceRoles (@RequestBody Authorizations newOb, @PathVariable Long id){
-        Authorizations updated = repository.findById(id)
-                .map(author -> {
-                    author.setLogin(newOb.getLogin());
-                    author.setPassword(newOb.getPassword());
-                    return repository.save(author);
-                }).orElseGet(()-> {
-                    newOb.setId(id);
-                    return repository.save(newOb);
-                });
-        EntityModel<Authorizations> entityModel = assembler.toModel(updated);
+        EntityModel<Authorizations> entityModel = assembler.toModel(
+                assembler.enrich(newOb, id));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

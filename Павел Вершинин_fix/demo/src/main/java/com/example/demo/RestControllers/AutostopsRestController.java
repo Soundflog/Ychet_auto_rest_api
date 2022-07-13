@@ -51,18 +51,9 @@ public class AutostopsRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> replaceRoles (@RequestBody Autostops newOb, @PathVariable Long id){
-        Autostops updated = repository.findById(id)
-                .map(stops -> {
-                    stops.setName(newOb.getName());
-                    stops.setAddress(newOb.getAddress());
-                    stops.setSeats(newOb.getSeats());
-                    stops.setType(newOb.getType());
-                    return repository.save(stops);
-                }).orElseGet(()-> {
-                    newOb.setId(id);
-                    return repository.save(newOb);
-                });
-        EntityModel<Autostops> entityModel = assembler.toModel(updated);
+        EntityModel<Autostops> entityModel = assembler.toModel(
+                assembler.enrich(newOb, id)
+        );
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
