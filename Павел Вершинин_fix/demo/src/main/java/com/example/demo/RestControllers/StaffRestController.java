@@ -22,10 +22,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/staffs")
 public class StaffRestController {
-    @Autowired
+    final
     StaffRepository staffRepository;
     @Autowired
     StaffAssembler assembler;
+
+    public StaffRestController(StaffRepository staffRepository) {
+        this.staffRepository = staffRepository;
+    }
 
     @GetMapping("/all")
     public CollectionModel<EntityModel<Staffs>> all(){
